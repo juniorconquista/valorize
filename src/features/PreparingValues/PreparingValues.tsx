@@ -77,11 +77,10 @@ const PreparingValues: React.FC = () => {
             parts.push(line.substring(lastIndex));
             return (
               <Text
-                color="$primary"
+                color="$secondary"
                 key={idx}
                 textAlign="justify"
                 lineHeight="$m"
-                fontWeight="$semiBold"
               >
                 {parts}
               </Text>

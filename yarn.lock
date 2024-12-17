@@ -486,10 +486,10 @@
   resolved "https://registry.yarnpkg.com/@rarui/icons/-/icons-1.0.0.tgz#b77f04e277744864017d29569ce5c9cb4b15013d"
   integrity sha512-c3d/SdBKo7o2INtgsDzRmYNgsjYPaPj8tn3v1rcLyfbVSLTzPLdCioLao3HLVA9TQQ2e06hoSXjIHl9wx3rkxQ==
 
-"@rarui/styles@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/@rarui/styles/-/styles-2.2.3.tgz"
-  integrity sha512-KPGr0FyldlGfPX0IMdbb19nOG8uLXg0RUqoPA0icdLwbmxrAPWADw9KPJVvf/Jlswmt9d3wRJJEFY/cyNIEBMA==
+"@rarui/styles@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@rarui/styles/-/styles-2.2.4.tgz#75dfc4244b773991a9647bf65bd15f6a6676279f"
+  integrity sha512-Gk9Sm/QW/+IcnFMFA5gKYJizHKB+nGt207Crc/3+PMODWtQ89uZqcrCj9j3I6J01eTZGUK/m+5lJp274pM+KZQ==
   dependencies:
     "@vanilla-extract/css" "^1.15.3"
     "@vanilla-extract/recipes" "^0.5.3"

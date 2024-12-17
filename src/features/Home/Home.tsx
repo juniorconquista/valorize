@@ -49,7 +49,7 @@ const Home: React.FC = () => {
           }
           rows={20}
         />
-        <Button appearance="brand" full onClick={handleProcess}>
+        <Button appearance="brand" full onClick={handleProcess} disabled={!text.length}>
           Processar
         </Button>
       </Box>
