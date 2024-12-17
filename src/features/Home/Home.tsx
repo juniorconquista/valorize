@@ -18,8 +18,8 @@ const Home: React.FC = () => {
         flexDirection="column"
         gap="$s"
       >
-        <Title>Document Analysis</Title>
-        <Text>
+        <Title textAlign="center">Document Analysis</Title>
+        <Text textAlign="center">
           Paste your text document below and click 'Process' to analyze the
           values within.
         </Text>
