@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ProxyRoute } from "./proxies";
 
 const Router: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/valorize">
     <ProxyRoute />
   </BrowserRouter>
 );
