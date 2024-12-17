@@ -7,9 +7,10 @@ const Home: React.FC = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      padding="$xl"
     >
       <Box
-        // width="613px"
+        minWidth={{ xs: "100%", lg: "900px" }}
         backgroundColor="$warning-hover"
         padding="$xl"
         borderRadius="$xs"
@@ -23,7 +24,9 @@ const Home: React.FC = () => {
           values within.
         </Text>
         <Textarea rows={20} />
-        <Button appearance="warning" full>Process</Button>
+        <Button appearance="warning" full>
+          Process
+        </Button>
       </Box>
     </Box>
   );
