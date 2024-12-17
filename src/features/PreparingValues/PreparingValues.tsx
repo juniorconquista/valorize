@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Box, Button, IconButton, Text } from "@rarui-react/components";
-import { CloseIcon } from "@rarui/icons";
+import { Box, Button, IconButton, Status, Text } from "@rarui-react/components";
+import { CloseIcon, RefreshIcon } from "@rarui/icons";
 import { useMinutaStore } from "@store/minuta";
 import { valueExtractor } from "@useCases/ValueExtractor";
 
@@ -10,6 +10,7 @@ import "./preparingValues.css";
 const PreparingValues: React.FC = () => {
   const [highlightedValue, setHighlightedValue] = useState<string | null>(null);
   const [total, setTotal] = useState<string | null>(null);
+  const [lastID, setLastID] = useState<number | null>(null);
   const { processedContent, content, setMinuta } = useMinutaStore();
 
   const handleClick = (value: string) => {
@@ -19,10 +20,23 @@ const PreparingValues: React.FC = () => {
   };
 
   const handleRemoveValue = (id: number) => {
-    const newProcessedContent = processedContent.filter(
-      (processed) => processed.id !== id
+    const updatedProcessedContent = processedContent.map((processed) =>
+      processed.id === id ? { ...processed, hidden: true } : processed
     );
-    setMinuta(content, newProcessedContent);
+
+    setMinuta(content, updatedProcessedContent);
+    setLastID(id);
+    handleCalculate();
+  };
+
+  const handleRevertValue = () => {
+    const updatedProcessedContent = processedContent.map((processed) =>
+      processed.id === lastID ? { ...processed, hidden: false } : processed
+    );
+
+    setMinuta(content, updatedProcessedContent);
+    setLastID(null);
+    handleCalculate();
   };
 
   const handleCalculate = () => {
@@ -79,41 +93,53 @@ const PreparingValues: React.FC = () => {
         as="ul"
         display="grid"
         gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-        gap="$s"
-        gridGap="$3xs"
+        gridGap="$2xs"
         flexWrap="wrap"
       >
-        {processedContent.map((processed, idx) => (
-          <Box display="flex" gap="$3xs">
-            <Button
-              full
-              variant="tonal"
-              appearance="neutral"
-              size="small"
-              onClick={() => handleClick(processed.value)}
-            >
-              {processed.value}
-            </Button>
-            <IconButton
-              variant="tonal"
-              appearance="danger"
-              source={<CloseIcon />}
-              onClick={() => handleRemoveValue(processed.id)}
-              size="small"
-            />
-          </Box>
-        ))}
+        {processedContent
+          .filter((content) => !content.hidden)
+          .map((processed, idx) => (
+            <Box display="flex" gap="$4xs" >
+              <Button
+                full
+                variant="tonal"
+                appearance="neutral"
+                size="small"
+                onClick={() => handleClick(processed.value)}
+              >
+                {processed.value}
+              </Button>
+              <IconButton
+                variant="tonal"
+                appearance="danger"
+                source={<CloseIcon />}
+                onClick={() => handleRemoveValue(processed.id)}
+                size="small"
+              />
+            </Box>
+          ))}
       </Box>
-      <Box display="flex" justifyContent="flex-end">
+      <Box display="flex" justifyContent="flex-end" gap="$3xs">
         <Button appearance="success" variant="tonal" onClick={handleCalculate}>
           Calcular
         </Button>
+        <IconButton
+          variant="tonal"
+          appearance="brand"
+          source={<RefreshIcon size="medium" />}
+          onClick={() => handleRevertValue()}
+          size="large"
+        />
       </Box>
-
       {total && (
-        <Text color="$primary" fontWeight="$bold">
-          O Valor total é: {total}
-        </Text>
+        <Box display="flex" alignItems="center" gap="$4xs">
+          <Text color="$primary" fontWeight="$bold">
+            O Valor total é:
+          </Text>
+          <Status variant="subdued" dot={false}>
+            {total}
+          </Status>
+        </Box>
       )}
     </Box>
   );

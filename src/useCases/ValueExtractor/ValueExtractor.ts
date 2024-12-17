@@ -36,6 +36,7 @@ export class ValueExtractor {
         start,
         end,
         numericValue,
+        hidden: false,
       });
     }
 
@@ -43,9 +44,11 @@ export class ValueExtractor {
   }
 
   public calculateTotalValue = (contents: ProcessedContent[]): string => {
-    const total = contents.reduce((sum, content) => {
-      return sum + (content.numericValue || 0); // Soma apenas valores válidos
-    }, 0);
+    const total = contents
+      .filter((content) => !content.hidden)
+      .reduce((sum, content) => {
+        return sum + (content.numericValue || 0); // Soma apenas valores válidos
+      }, 0);
 
     // Formatar o total como moeda no formato "R$ 191.570,00"
     return new Intl.NumberFormat("pt-BR", {

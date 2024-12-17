@@ -7,6 +7,7 @@ export interface ProcessedContent {
   numericValue: number;
   start: number;
   end: number;
+  hidden: boolean;
 }
 
 interface MinutaState {
