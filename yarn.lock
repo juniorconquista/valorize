@@ -481,6 +481,11 @@
     "@rarui/typings" "^2.0.1"
     react-datepicker "^6.9.0"
 
+"@rarui/icons@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@rarui/icons/-/icons-1.0.0.tgz#b77f04e277744864017d29569ce5c9cb4b15013d"
+  integrity sha512-c3d/SdBKo7o2INtgsDzRmYNgsjYPaPj8tn3v1rcLyfbVSLTzPLdCioLao3HLVA9TQQ2e06hoSXjIHl9wx3rkxQ==
+
 "@rarui/styles@^2.2.3":
   version "2.2.3"
   resolved "https://registry.npmjs.org/@rarui/styles/-/styles-2.2.3.tgz"
