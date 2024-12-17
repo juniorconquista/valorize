@@ -27,6 +27,8 @@
       "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@features/*": ["src/features/*"],
+      "@useCases/*": ["src/useCases/*"],
+      "@store/*": ["src/store/*"],
       "@components/*": ["src/components/*"]
     }
   },

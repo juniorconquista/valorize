@@ -3,13 +3,14 @@ import { Box, Text, Link } from "@rarui-react/components";
 import "./footer.css";
 
 const Footer: React.FC = () => (
-  <footer className="footer">
+  <footer className="s">
     <Box
       height="72px"
       display="flex"
       justifyContent="space-between"
       paddingX="$3xl"
       alignItems="center"
+      backgroundColor="$primary"
     >
       <Box>
         <Text fontSize="$s" color="$primary">
