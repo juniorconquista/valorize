@@ -2,7 +2,9 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface ProcessedContent {
+  id: number;
   value: string;
+  numericValue: number;
   start: number;
   end: number;
 }

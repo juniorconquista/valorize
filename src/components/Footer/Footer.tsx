@@ -10,7 +10,7 @@ const Footer: React.FC = () => (
       justifyContent="space-between"
       paddingX="$3xl"
       alignItems="center"
-      backgroundColor="$primary"
+      backgroundColor="$secondary"
     >
       <Box>
         <Text fontSize="$s" color="$primary">

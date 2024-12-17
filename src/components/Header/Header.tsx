@@ -18,7 +18,7 @@ const Header: React.FC = () => {
       alignItems="center"
       display="flex"
       justifyContent="space-between"
-      backgroundColor="$primary"
+      backgroundColor="$secondary"
     >
       {darkMode && <LogoDark width="150px" />}
       {!darkMode && <LogoLight width="150px" />}

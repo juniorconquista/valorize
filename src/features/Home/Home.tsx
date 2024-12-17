@@ -5,7 +5,6 @@ import { valueExtractor } from "@useCases/ValueExtractor";
 import { useMinutaStore } from "@store/minuta";
 import { urlRouters } from "@/router/router.definitions";
 
-
 const Home: React.FC = () => {
   const [text, setText] = useState("");
   const { setMinuta } = useMinutaStore();
@@ -45,7 +44,9 @@ const Home: React.FC = () => {
         </Text>
         <Textarea
           value={text}
-          onChange={(event) => setText(event.target.value)}
+          onChange={(event) =>
+            setText(valueExtractor.sanitizeText(event.target.value))
+          }
           rows={20}
         />
         <Button appearance="brand" full onClick={handleProcess}>

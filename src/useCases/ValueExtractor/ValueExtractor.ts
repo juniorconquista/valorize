@@ -1,58 +1,56 @@
 import { ProcessedContent } from "@store/minuta";
 
 export class ValueExtractor {
+  public sanitizeText = (text: string) => {
+    return text
+      .replace(/(\r\n|\n|\r)/g, " ") // Remove todas as quebras de linha
+      .replace(/\s{2,}/g, " "); // Substitui múltiplos espaços por um único espaço
+  };
+
   public extractValuesWithPositions(text: string): ProcessedContent[] {
     const results: ProcessedContent[] = [];
     const regex = /R\$\s?\d{1,3}(\.\d{3})*(,\d{2})?/g;
     const matches = [...text.matchAll(regex)];
 
+    // Gerar um id único para cada item
+    let idCounter = 0;
+
     for (const match of matches) {
       const foundValue = match[0].trim();
       const start = match.index || 0;
       const end = start + foundValue.length;
-      results.push({ value: foundValue, start, end });
+
+      // Remover o 'R$' e substituir a vírgula por ponto para tratar como número
+      const numericValue = parseFloat(
+        foundValue
+          .replace("R$", "") // Remove "R$"
+          .replace(/\./g, "") // Remove os pontos para separar as casas decimais
+          .replace(",", ".") // Substitui a vírgula por ponto
+      );
+
+      const uniqueId = idCounter++;
+
+      results.push({
+        id: uniqueId,
+        value: foundValue,
+        start,
+        end,
+        numericValue,
+      });
     }
 
     return results;
   }
 
-  /**
-   * Extracts all monetary values and their surrounding context from the provided text.
-   * @param text The input text where values will be searched.
-   * @returns Array of objects containing the value and its context.
-   */
-  public extractValuesWithContext(
-    text: string
-  ): { value: string; context: string }[] {
-    console.log(text);
-    const results: { value: string; context: string }[] = [];
+  public calculateTotalValue = (contents: ProcessedContent[]): string => {
+    const total = contents.reduce((sum, content) => {
+      return sum + (content.numericValue || 0); // Soma apenas valores válidos
+    }, 0);
 
-    // Regex to match values in the format R$ xxx.xxx,xx
-    const regex = /R\$\s?\d{1,3}(\.\d{3})*(,\d{2})?/g;
-
-    // Find all matches using matchAll
-    const matches = [...text.matchAll(regex)];
-
-    for (const match of matches) {
-      const foundValue = match[0].trim(); // Value found (e.g., R$ 191.570,00)
-
-      // Index of the match in the text
-      const startIndex = match.index || 0;
-
-      // Extract the surrounding context: paragraph where the value appears
-      const paragraphStart = text.lastIndexOf("\n", startIndex) + 1; // Start of paragraph
-      const paragraphEnd = text.indexOf("\n", startIndex); // End of paragraph
-      const fullContext = text
-        .substring(
-          paragraphStart,
-          paragraphEnd !== -1 ? paragraphEnd : text.length
-        )
-        .trim();
-
-      // Add value and its context to the results
-      results.push({ value: foundValue, context: fullContext });
-    }
-
-    return results;
-  }
+    // Formatar o total como moeda no formato "R$ 191.570,00"
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(total);
+  };
 }

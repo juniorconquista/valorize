@@ -1,4 +1,24 @@
 .highlighted {
-  background-color: yellow;
+  background-color: var(--rarui-colors-surface-warning);
+  border-radius: var(--rarui-shape-border-radius-2xs);
+  padding-left: var(--rarui-spacing-4xs);
+  padding-right: var(--rarui-spacing-4xs);
   font-weight: bold;
+  color: #000;
+}
+
+.list {
+  max-height: 400px;
+  overflow-x: auto;
+  padding: var(--rarui-spacing-2xs);
+}
+
+.list::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: var(--rarui-shape-border-radius-2xs);
+  background-color: var(--rarui-colors-content-disabled);
 }
