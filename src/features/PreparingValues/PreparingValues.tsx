@@ -98,7 +98,7 @@ const PreparingValues: React.FC = () => {
         {processedContent
           .filter((content) => !content.hidden)
           .map((processed, idx) => (
-            <Box display="flex" gap="$4xs" >
+            <Box display="flex" gap="$4xs">
               <Button
                 full
                 variant="tonal"
@@ -122,13 +122,15 @@ const PreparingValues: React.FC = () => {
         <Button appearance="success" variant="tonal" onClick={handleCalculate}>
           Calcular
         </Button>
-        <IconButton
-          variant="tonal"
-          appearance="brand"
-          source={<RefreshIcon size="medium" />}
-          onClick={() => handleRevertValue()}
-          size="large"
-        />
+        {lastID && (
+          <IconButton
+            variant="tonal"
+            appearance="brand"
+            source={<RefreshIcon size="medium" />}
+            onClick={() => handleRevertValue()}
+            size="large"
+          />
+        )}
       </Box>
       {total && (
         <Box display="flex" alignItems="center" gap="$4xs">
