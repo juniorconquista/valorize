@@ -1,17 +1,29 @@
 import React, { useState } from "react";
-import { Box, Button, IconButton, Status, Text } from "@rarui-react/components";
-import { CloseIcon, RefreshIcon } from "@rarui/icons";
+import { useNavigate } from "react-router-dom";
+
+import {
+  Box,
+  Breadcrumb,
+  Button,
+  Icon,
+  IconButton,
+  Status,
+  Text,
+} from "@rarui-react/components";
+import { CloseIcon, HomeFilledIcon, RefreshIcon } from "@rarui/icons";
 import { useMinutaStore } from "@store/minuta";
 import { valueExtractor } from "@useCases/ValueExtractor";
 
 import { highlightValueInText } from "./preparingValues.definitions";
 import "./preparingValues.css";
+import { urlRouters } from "@/router/router.definitions";
 
 const PreparingValues: React.FC = () => {
   const [highlightedValue, setHighlightedValue] = useState<string | null>(null);
   const [total, setTotal] = useState<string | null>(null);
   const [lastID, setLastID] = useState<number | null>(null);
   const { processedContent, content, setMinuta } = useMinutaStore();
+  const navigate = useNavigate();
 
   const handleClick = (value: string) => {
     setHighlightedValue(value);
@@ -53,6 +65,12 @@ const PreparingValues: React.FC = () => {
       flexDirection="column"
       gap="$s"
     >
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => navigate(urlRouters.root)}>
+          <Icon color="$primary" source={<HomeFilledIcon size={16} />} /> Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Preparando valores</Breadcrumb.Item>
+      </Breadcrumb>
       <Box backgroundColor="$secondary" borderRadius="$xs">
         <div id="editor" className="list">
           {content.split("\n").map((line, idx) => {
